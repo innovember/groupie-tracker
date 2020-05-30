@@ -9,7 +9,8 @@ import (
 )
 
 func Execute() {
-	http.HandleFunc("/", internal.IndexPage)
+	http.HandleFunc("/artists", internal.ArtistsPageHandler)
+	http.HandleFunc("/artist", internal.ArtistPageHandler)
 
 	fmt.Println("Server is listening...")
 

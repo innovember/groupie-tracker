@@ -2,9 +2,11 @@ package internal
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 //API urls
@@ -113,4 +115,17 @@ func GetRelation(id string) (SubRelation, error) {
 		return subRelation, err2
 	}
 	return subRelation, nil
+}
+
+func GetQueryID(w http.ResponseWriter, req *http.Request) (int, error) {
+	keys, exist := req.URL.Query()["id"]
+	if !exist || len(keys) != 1 {
+		return 0, errors.New("URL Param 'id' is missing")
+	}
+	key := keys[0]
+	id, err := strconv.Atoi(key)
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
 }

@@ -2,7 +2,6 @@ package internal
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -52,19 +51,22 @@ func ArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func ArtistPageHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Println(req.URL.Query())
-	id := req.URL.Query().Get("id")
-	_id, _ := strconv.Atoi(id)
-	if _id < 1 || _id > 52 {
+	id, errID := GetQueryID(w, req)
+	if errID != nil {
+		http.Error(w, "URL Param 'id' is missing", 400)
+		return
+	}
+	if id < 1 || id > 52 {
 		http.Error(w, "There is no such group, Return to main page", 404)
 		return
 	}
-	artist, err := GetArtist(id)
+	_id := strconv.Itoa(id)
+	artist, err := GetArtist(_id)
 	if err != nil {
 		http.Error(w, "Go back to the main page", 500)
 		return
 	}
-	relation, err2 := GetRelation(id)
+	relation, err2 := GetRelation(_id)
 	if err2 != nil {
 		http.Error(w, "Go back to the main page", 500)
 		return

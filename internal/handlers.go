@@ -53,7 +53,7 @@ func ArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 func ArtistPageHandler(w http.ResponseWriter, req *http.Request) {
 	id, errID := GetQueryID(w, req)
 	if errID != nil {
-		http.Error(w, "URL Param 'id' is missing", 400)
+		http.Error(w, errID.Error(), 400)
 		return
 	}
 	if id < 1 || id > 52 {

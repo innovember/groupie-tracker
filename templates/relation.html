@@ -146,24 +146,25 @@
           $(row).find('td').eq(7).attr('title', $(data[7]).attr('data-readiness'));
         },
         ajax: '/relation',
-        "columnDefs": [
-          {
+        "columnDefs": [{
             "render": function (data, type, row) {
               var link = '<nobr><a href="/relation' + row[0] + '" target="_blank"></i></a>';
               link += '</nobr>';
               return link;
 
-            }, "targets": 0
+            },
+            "targets": 0
           },
           {
             "render": function (data, type, row) {
-              return '<a href="/customers/' + row[16] + '/view/" target="_blank"></i><b>' + data + '</b></a><div class="text-secondary">' + row[17] + "</div>";
-            }, "targets": 1
+              return '<a href="/customers/' + row[16] + '/view/" target="_blank"></i><b>' + data +
+                '</b></a><div class="text-secondary">' + row[17] + "</div>";
+            },
+            "targets": 1
           },
         ]
       });
     });
-
   </script>
 </body>
 

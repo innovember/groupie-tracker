@@ -83,3 +83,27 @@ func ArtistPageHandler(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
 }
+
+func ShowArtistsHandler(w http.ResponseWriter, req *http.Request) {
+	switch req.Method {
+	case "GET":
+		ShowArtistsPageGetHandler(w, req)
+	default:
+		http.Error(w, "Only GET method allowed, return to main page", 405)
+	}
+}
+
+func ShowArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
+	if req.URL.Path != "/" {
+		http.Error(w, "Go back to the main page", 404)
+		return
+	}
+	w.Header().Set("Content-Type", "text/html")
+
+	err := templates.ExecuteTemplate(w, "artists.html", nil)
+	if err != nil {
+		http.Error(w, "Go back to the main page", 500)
+		return
+	}
+
+}

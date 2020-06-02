@@ -9,9 +9,15 @@ import (
 )
 
 func Execute() {
+
+	// API handlers
 	http.HandleFunc("/artists", internal.ArtistsPageHandler)
 	http.HandleFunc("/artist", internal.ArtistPageHandler)
+	//http.HandleFunc("/relations", internal.RelationPageHandler)
 
+	// User pages handlers
+	http.HandleFunc("/", internal.ShowArtistsHandler)
+	//http.HandleFunc("/relation", internal.ShowRelationHandler)
 	fmt.Println("Server is listening...")
 
 	err := http.ListenAndServe(getPort(), nil)

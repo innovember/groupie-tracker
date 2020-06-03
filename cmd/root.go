@@ -13,7 +13,7 @@ func Execute() {
 	// API handlers
 	http.HandleFunc("/artists", internal.ArtistsPageHandler)
 	http.HandleFunc("/artist", internal.ArtistPageHandler)
-	//http.HandleFunc("/relations", internal.RelationPageHandler)
+	http.HandleFunc("/relations", internal.RelationPageHandler)
 
 	// User pages handlers
 	http.HandleFunc("/", internal.ShowArtistsHandler)

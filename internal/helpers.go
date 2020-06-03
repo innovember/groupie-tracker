@@ -129,3 +129,36 @@ func GetQueryID(w http.ResponseWriter, req *http.Request) (int, error) {
 	}
 	return id, nil
 }
+
+func GetAllRelations() (Relation, error) {
+	RelationAPI := "https://groupietrackers.herokuapp.com/api/relation"
+	output, err := GetJsonFromAPI(RelationAPI)
+	var relations Relation
+	if err != nil {
+		return relations, err
+	}
+	errJSON := json.Unmarshal(output, &relations)
+	if errJSON != nil {
+		return relations, errJSON
+	}
+	return relations, nil
+}
+
+func parseRelations(relations Relation) []AllRelations {
+	var allRelations []AllRelations
+	for i := range relations.Index {
+		allRelations[i].AllInfo = parseMapToStr(relations.Index[i].DatesLocations)
+	}
+	return allRelations
+}
+
+func parseMapToStr(datesLocations map[string][]string) string {
+	result := ""
+	for key, value := range datesLocations {
+		result += key + ":\n"
+		for i := range value {
+			result += value[i] + "\n"
+		}
+	}
+	return result
+}

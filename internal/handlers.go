@@ -107,3 +107,46 @@ func ShowArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 }
+
+func RelationPageHandler(w http.ResponseWriter, req *http.Request) {
+	if req.URL.Path != "/relations" {
+		http.Error(w, "Go back to the main page", 404)
+		return
+	}
+	relations, err := GetAllRelations()
+	if err != nil {
+		http.Error(w, "Return to main page", 400)
+		return
+	}
+	allRelations := parseRelations(relations)
+	js, err2 := json.Marshal(allRelations)
+	if err2 != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
+func ShowRelationHandler(w http.ResponseWriter, req *http.Request) {
+	switch req.Method {
+	case "GET":
+		ShowRelationPageGetHandler(w, req)
+	default:
+		http.Error(w, "Only GET method allowed, return to main page", 405)
+	}
+}
+
+func ShowRelationPageGetHandler(w http.ResponseWriter, req *http.Request) {
+	if req.URL.Path != "/relation" {
+		http.Error(w, "Go back to the main page", 404)
+		return
+	}
+	w.Header().Set("Content-Type", "text/html")
+
+	err := templates.ExecuteTemplate(w, "relation.html", nil)
+	if err != nil {
+		http.Error(w, "Go back to the main page", 500)
+		return
+	}
+}

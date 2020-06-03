@@ -45,3 +45,7 @@ type SubRelation struct {
 	ID             float32             `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
+
+type AllRelations struct {
+	AllInfo string
+}

@@ -47,5 +47,5 @@ type SubRelation struct {
 }
 
 type AllRelations struct {
-	AllInfo string
+	AllInfo string `json:"allInfo"`
 }

@@ -145,20 +145,23 @@ func GetAllRelations() (Relation, error) {
 }
 
 func parseRelations(relations Relation) []AllRelations {
-	var allRelations []AllRelations
-	for i := range relations.Index {
+	allRelations := make([]AllRelations, 52)
+	for i := range allRelations {
+		allRelations[i].AllInfo = ""
+	}
+	for i := range allRelations {
 		allRelations[i].AllInfo = parseMapToStr(relations.Index[i].DatesLocations)
 	}
 	return allRelations
 }
 
 func parseMapToStr(datesLocations map[string][]string) string {
-	result := ""
+	item := ""
 	for key, value := range datesLocations {
-		result += key + ":\n"
+		item += key + ":\n"
 		for i := range value {
-			result += value[i] + "\n"
+			item += value[i] + "\n"
 		}
 	}
-	return result
+	return item
 }

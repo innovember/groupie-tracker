@@ -9,163 +9,171 @@
 <link rel="stylesheet" href="/assets/css/main.css">
 <script src="/assets/js/main.js"></script>
 <style>
-  body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Raleway", sans-serif
-  }
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Raleway", sans-serif
+    }
 
-  tr>td:last-of-type {
-    text-align: right;
-  }
+    tr>td:last-of-type {
+        text-align: right;
+    }
 
-  .table tbody tr.odd_ {
-    background-color: rgba(0, 0, 0, .05);
-  }
+    .table tbody tr.odd_ {
+        background-color: rgba(0, 0, 0, .05);
+    }
 
-  .table tbody tr.dngr_ {
-    background-color: rgba(255, 0, 0, 0.25);
-  }
+    .table tbody tr.dngr_ {
+        background-color: rgba(255, 0, 0, 0.25);
+    }
 
-  .table tbody tr.night_del {
-    background-color: rgba(78, 0, 187, 0.25);
-  }
+    .table tbody tr.night_del {
+        background-color: rgba(78, 0, 187, 0.25);
+    }
 </style>
 
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 
-  <!-- Overlay effect when opening sidebar on small screens -->
-  <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
-    title="close side menu" id="myOverlay"></div>
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+        title="close side menu" id="myOverlay"></div>
 
-  <!-- !PAGE CONTENT! -->
-  <div class="w3-main">
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main">
 
-    <!-- Header -->
-    <header id="portfolio">
-      <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;"
-          class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-      <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
-          class="fa fa-bars"></i></span>
-      <div class="w3-container">
-        <h1><b>My Portfolio</b></h1>
+        <!-- Header -->
+        <header id="portfolio">
+            <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;"
+                    class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+            <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                    class="fa fa-bars"></i></span>
+            <div class="w3-container">
+                <h1><b>My Portfolio</b></h1>
 
-        <hr class="w3-opacity">
-        <form action="/action_page.php" target="_blank">
-          <div class="w3-section">
-            <label>Search:</label>
-            <input class="w3-input w3-border" type="text" name="Name" required>
-          </div>
-          <button type="submit" class="w3-button w3-black w3-margin-bottom">
-            <i class="fa fa-paper-plane w3-margin-right"></i>Send Message</button>
-        </form>
+                <hr class="w3-opacity">
+                <form action="/action_page.php" target="_blank">
+                    <div class="w3-section">
+                        <label>Search:</label>
+                        <input class="w3-input w3-border" type="text" name="Name" required>
+                    </div>
+                    <button type="submit" class="w3-button w3-black w3-margin-bottom">
+                        <i class="fa fa-paper-plane w3-margin-right"></i>Send Message</button>
+                </form>
 
-        <div class="w3-section w3-bottombar w3-padding-16">
-          <span class="w3-margin-right">Filter:</span>
-          <button class="w3-button w3-black">ALL</button>
-          <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
-          <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-          <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+                <div class="w3-section w3-bottombar w3-padding-16">
+                    <span class="w3-margin-right">Filter:</span>
+                    <button class="w3-button w3-black">ALL</button>
+                    <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
+                    <button class="w3-button w3-white w3-hide-small"><i
+                            class="fa fa-photo w3-margin-right"></i>Photos</button>
+                    <button class="w3-button w3-white w3-hide-small"><i
+                            class="fa fa-map-pin w3-margin-right"></i>Art</button>
+                </div>
+            </div>
+        </header>
+
+        <table id="dataTable" class="table table-bordered tasks-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+            <h4><b>About Me</b></h4>
+            <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of
+                lorem
+                ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut
+                rutrum.
+                Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent
+                tincidunt
+                sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non
+                fringilla.</p>
+            <hr>
+
+
         </div>
-      </div>
-    </header>
 
-    <table id="dataTable" class="table table-bordered tasks-table" style="width:100%">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Location</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-      <tfoot>
-        <tr>
-          <th>ID</th>
-          <th>Location</th>
-          <th>Date</th>
-        </tr>
-      </tfoot>
-    </table>
+        <!-- Footer -->
+        <footer class="w3-container w3-padding-32 w3-dark-grey">
+            <div class="w3-row-padding">
+                <div class="w3-center">
+                    <h3>FOOTER</h3>
+                    <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae,
+                        ultricies congue
+                        gravida diam non fringilla.</p>
+                    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+                </div>
+            </div>
+        </footer>
 
-    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-      <h4><b>About Me</b></h4>
-      <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem
-        ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum.
-        Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt
-        sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non
-        fringilla.</p>
-      <hr>
+        <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+                title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 
-
+        <!-- End page content -->
     </div>
 
-    <!-- Footer -->
-    <footer class="w3-container w3-padding-32 w3-dark-grey">
-      <div class="w3-row-padding">
-        <div class="w3-center">
-          <h3>FOOTER</h3>
-          <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue
-            gravida diam non fringilla.</p>
-          <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-        </div>
-      </div>
-    </footer>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                oLanguage: {
+                    "sUrl": "{{ static_url('assets/js/datatable.json') }}"
+                },
+                initComplete: function () {
+                    $('div.dataTables_filter input').attr('autocomplete', 'off')
+                        .attr("autocorrect", "off")
+                },
+                responsive: true,
+                bSort: false,
+                serverSide: true,
+                "scrollX": true,
+                "pageLength": 100,
+                createdRow: function (row, data, dataIndex) {
+                    var d = data[0];
+                    console.log('asd', data[data.length - 3])
+                    $(row).attr('data-id', d);
+                    $(row).addClass(data[data.length - 3]);
+                    $(row).find('td').eq(7).attr('title', $(data[7]).attr('data-readiness'));
+                },
+                ajax: '/relation',
+                "columnDefs": [{
+                        "render": function (data, type, row) {
+                            var link = '<nobr><a href="/relation' + row[0] +
+                                '" target="_blank"></i></a>';
+                            link += '</nobr>';
+                            return link;
 
-    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp"
-        title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
-
-    <!-- End page content -->
-  </div>
-
-  <script>
-    $(document).ready(function () {
-      $('#dataTable').DataTable({
-        oLanguage: {
-          "sUrl": "{{ static_url('assets/js/datatable.json') }}"
-        },
-        initComplete: function () {
-          $('div.dataTables_filter input').attr('autocomplete', 'off')
-            .attr("autocorrect", "off")
-        },
-        responsive: true,
-        bSort: false,
-        serverSide: true,
-        "scrollX": true,
-        "pageLength": 100,
-        createdRow: function (row, data, dataIndex) {
-          var d = data[0];
-          console.log('asd', data[data.length - 3])
-          $(row).attr('data-id', d);
-          $(row).addClass(data[data.length - 3]);
-          $(row).find('td').eq(7).attr('title', $(data[7]).attr('data-readiness'));
-        },
-        ajax: '/relation',
-        "columnDefs": [{
-            "render": function (data, type, row) {
-              var link = '<nobr><a href="/relation' + row[0] + '" target="_blank"></i></a>';
-              link += '</nobr>';
-              return link;
-
-            },
-            "targets": 0
-          },
-          {
-            "render": function (data, type, row) {
-              return '<a href="/customers/' + row[16] + '/view/" target="_blank"></i><b>' + data +
-                '</b></a><div class="text-secondary">' + row[17] + "</div>";
-            },
-            "targets": 1
-          },
-        ]
-      });
-    });
-  </script>
+                        },
+                        "targets": 0
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            return '<a href="/customers/' + row[16] +
+                                '/view/" target="_blank"></i><b>' + data +
+                                '</b></a><div class="text-secondary">' + row[17] + "</div>";
+                        },
+                        "targets": 1
+                    },
+                ]
+            });
+        });
+    </script>
 </body>
 
 </html>

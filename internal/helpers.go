@@ -2,11 +2,10 @@ package internal
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strconv"
+	"strings"
 )
 
 //API urls
@@ -23,25 +22,6 @@ func GetAllArtists() ([]Artist, error) {
 		fmt.Println(errArtists.Error())
 		return nil, errArtists
 	}
-	// // Get Locations structure from API
-	// locations, errLocations := GetLocations(LocationsAPI)
-	// if errLocations != nil {
-	// 	fmt.Println(errArtists.Error())
-	// 	return nil, errLocations
-	// }
-	// // Get Dates structure from API
-	// dates, errDates := GetDates(DatesAPI)
-	// if errDates != nil {
-	// 	fmt.Println(errArtists.Error())
-	// 	return nil, errDates
-	// }
-	// // Get Relation structure from API
-	// relation, errRelation := GetRelation(RelationAPI)
-	// if errRelation != nil {
-	// 	fmt.Println(errArtists.Error())
-	// 	return nil, errRelation
-	// }
-	//
 	return artists, nil
 }
 
@@ -57,21 +37,6 @@ func GetArtists(url string) ([]Artist, error) {
 	}
 	return artists, nil
 }
-
-// func GetLocations(url string) ([]Artist, error) {
-// 	// return locations, nil
-// 	return nil, nil
-// }
-
-// func GetDates(url string) ([]Artist, error) {
-// 	// return dates, nil
-// 	return nil, nil
-// }
-
-// func GetRelation(url string) ([]Artist, error) {
-// 	// return relation, nil
-// 	return nil, nil
-// }
 
 func GetJsonFromAPI(url string) ([]byte, error) {
 	response, err := http.Get(url)
@@ -117,19 +82,6 @@ func GetRelation(id string) (SubRelation, error) {
 	return subRelation, nil
 }
 
-func GetQueryID(w http.ResponseWriter, req *http.Request) (int, error) {
-	keys, exist := req.URL.Query()["id"]
-	if !exist || len(keys) != 1 {
-		return 0, errors.New("URL Param 'id' is missing")
-	}
-	key := keys[0]
-	id, err := strconv.Atoi(key)
-	if err != nil {
-		return 0, err
-	}
-	return id, nil
-}
-
 func GetAllRelations() (Relation, error) {
 	RelationAPI := "https://groupietrackers.herokuapp.com/api/relation"
 	output, err := GetJsonFromAPI(RelationAPI)
@@ -144,24 +96,57 @@ func GetAllRelations() (Relation, error) {
 	return relations, nil
 }
 
-func parseRelations(relations Relation) []AllRelations {
-	allRelations := make([]AllRelations, 52)
-	for i := range allRelations {
-		allRelations[i].AllInfo = ""
-	}
-	for i := range allRelations {
-		allRelations[i].AllInfo = parseMapToStr(relations.Index[i].DatesLocations)
-	}
-	return allRelations
-}
-
-func parseMapToStr(datesLocations map[string][]string) string {
-	item := ""
-	for key, value := range datesLocations {
-		item += key + ":\n"
-		for i := range value {
-			item += value[i] + "\n"
+func parseRelations(relations Relation) AllRelationsData {
+	var allRelations = make([]AllRelations, 333)
+	j := 0
+	for i := range relations.Index {
+		id := relations.Index[i].ID
+		valueStr := ""
+		item := make(map[string]string)
+		for key, value := range relations.Index[i].DatesLocations {
+			for i := range value {
+				valueStr += formatDate(value[i])
+				if len(value) > 1 && i != len(value)-1 {
+					valueStr += " | "
+				}
+			}
+			item[key] = valueStr
+			allRelations[j].ID = id
+			allRelations[j].Location = key
+			allRelations[j].Date = item[key]
+			j++
+			item = map[string]string{}
+			valueStr = ""
 		}
 	}
+	var allRelationsData = AllRelationsData{
+		Data:            allRelations,
+		Draw:            1,
+		RecordsTotal:    len(allRelations),
+		RecordsFiltered: len(allRelations),
+	}
+	return allRelationsData
+}
+
+func parseMapToStr(datesLocations map[string][]string) map[string]string {
+	item := make(map[string]string)
+	valueStr := ""
+	for key, value := range datesLocations {
+		for i := range value {
+			valueStr += formatDate(value[i]) + "\n"
+		}
+		item[formatLocation(key)] = valueStr
+	}
 	return item
+}
+
+func formatLocation(str string) string {
+	str = strings.ReplaceAll(str, "-", ", ")
+	str = strings.ReplaceAll(str, "_", " ")
+	str = strings.Title(str)
+	return str
+}
+
+func formatDate(str string) string {
+	return strings.ReplaceAll(str, "-", ".")
 }

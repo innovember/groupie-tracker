@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"html/template"
 	"net/http"
+	"path/filepath"
 	"strconv"
 )
 
@@ -12,7 +13,7 @@ var (
 )
 
 func init() {
-	templates = template.Must(template.ParseGlob("./templates/*.html"))
+	templates = template.Must(template.New("t").ParseGlob(filepath.Join(".", "templates", "*.html")))
 }
 
 func ArtistsPageHandler(w http.ResponseWriter, req *http.Request) {
@@ -41,26 +42,24 @@ func ArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
-
-	// Uncomment it when index.html will be ready , to render data to html
-	// errTemplate := templates.ExecuteTemplate(w, "index.html", artists)
-	// if errTemplate != nil {
-	// 	http.Error(w, "Go back to the main page", 500)
-	// 	return
-	// }
 }
 
 func ArtistPageHandler(w http.ResponseWriter, req *http.Request) {
-	id, errID := GetQueryID(w, req)
+	if len(req.URL.Path) <= len("/artist/") {
+		http.Error(w, "Artist ID is missing, return to main page", 400)
+		return
+	}
+	_id := req.URL.Path[len("/artist/"):]
+	id, errID := strconv.Atoi(_id)
 	if errID != nil {
-		http.Error(w, errID.Error(), 400)
+		http.Error(w, "There is no such artist, return to main page", 400)
 		return
 	}
 	if id < 1 || id > 52 {
-		http.Error(w, "There is no such group, Return to main page", 404)
+		http.Error(w, "There is no such artist, Return to main page", 404)
 		return
 	}
-	_id := strconv.Itoa(id)
+
 	artist, err := GetArtist(_id)
 	if err != nil {
 		http.Error(w, "Go back to the main page", 500)

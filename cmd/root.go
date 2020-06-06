@@ -1,23 +1,25 @@
 package cmd
 
 import (
-	internal "../internal"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
+
+	internal "../internal"
 )
 
 func Execute() {
 
 	// API handlers
 	http.HandleFunc("/artists", internal.ArtistsPageHandler)
-	http.HandleFunc("/artist", internal.ArtistPageHandler)
+	http.HandleFunc("/artist/", internal.ArtistPageHandler)
 	http.HandleFunc("/relations", internal.RelationPageHandler)
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
 
 	// User pages handlers
 	http.HandleFunc("/", internal.ShowArtistsHandler)
-	//http.HandleFunc("/relation", internal.ShowRelationHandler)
+	http.HandleFunc("/relation", internal.ShowRelationHandler)
 	fmt.Println("Server is listening...")
 
 	err := http.ListenAndServe(getPort(), nil)

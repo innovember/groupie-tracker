@@ -1,0 +1,103 @@
+/* css for index page */
+body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Raleway", sans-serif
+  }
+
+  .p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 600px;
+  }
+
+  .loader {
+
+    position: absolute;
+    left: 40%;
+    border: 16px solid #d2d2d2;
+    border-radius: 50%;
+    border-top: 16px solid #000;
+    width: 220px;
+    height: 220px;
+    -webkit-animation: spin 1s linear infinite;
+    /* Safari */
+    animation: spin 1s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  /*  */
+
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .topnav-right {
+    float: right;
+  }
+
+
+  /* data table */
+
+
+  tr>td:last-of-type {
+    text-align: right;
+}
+
+.table tbody tr.odd_ {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.table tbody tr.dngr_ {
+    background-color: rgba(255, 0, 0, 0.25);
+}
+
+.table tbody tr.night_del {
+    background-color: rgba(78, 0, 187, 0.25);
+}

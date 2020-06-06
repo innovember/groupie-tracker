@@ -1,46 +1,21 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Relations | Groupie Tracker</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/assets/css/main.css">
-<script src="/assets/js/main.js"></script>
-<style>
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-family: "Raleway", sans-serif
-    }
-
-    tr>td:last-of-type {
-        text-align: right;
-    }
-
-    .table tbody tr.odd_ {
-        background-color: rgba(0, 0, 0, .05);
-    }
-
-    .table tbody tr.dngr_ {
-        background-color: rgba(255, 0, 0, 0.25);
-    }
-
-    .table tbody tr.night_del {
-        background-color: rgba(78, 0, 187, 0.25);
-    }
-</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css">
 
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 
     <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
-        title="close side menu" id="myOverlay"></div>
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" style="cursor:pointer" title="close side menu"
+        id="myOverlay"></div>
 
     <!-- !PAGE CONTENT! -->
     <div class="w3-main">
@@ -52,7 +27,18 @@
             <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                     class="fa fa-bars"></i></span>
             <div class="w3-container">
-                <h1><b>My Portfolio</b></h1>
+                <div class="topnav">
+                    <a class="active" href="/">Home</a>
+                    <a href="/relation">Relations</a>
+                    <div class="topnav-right">
+                        <a href="/artists" target="_blank">All Artists</a>
+                        <a href="/relations" target="_blank">All Relations</a>
+                    </div>
+                </div>
+
+                <div style="display: block ruby; margin-top: 32px;">
+                    <h1><b>All Relations</b></h1>
+                </div>
 
                 <hr class="w3-opacity">
                 <form action="/action_page.php" target="_blank">
@@ -76,24 +62,28 @@
             </div>
         </header>
 
-        <table id="dataTable" class="table table-bordered tasks-table" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Location</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Location</th>
-                    <th>Date</th>
-                </tr>
-            </tfoot>
-        </table>
+
+
+        <div id="loader" class="loader"></div>
+        <div id="mainContainer">
+            <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Id</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
 
         <div class="w3-container w3-padding-large" style="margin-bottom:32px">
             <h4><b>About Me</b></h4>
@@ -114,10 +104,8 @@
         <footer class="w3-container w3-padding-32 w3-dark-grey">
             <div class="w3-row-padding">
                 <div class="w3-center">
-                    <h3>FOOTER</h3>
-                    <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae,
-                        ultricies congue
-                        gravida diam non fringilla.</p>
+                    <h3>Alem - 2020</h3>
+                    <p>"Groupie Tracker" as part of project for Alem</p>
                     <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
                 </div>
             </div>
@@ -129,51 +117,35 @@
         <!-- End page content -->
     </div>
 
+    <script src="/assets/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
     <script>
+        showLoader()
         $(document).ready(function () {
             $('#dataTable').DataTable({
-                oLanguage: {
-                    "sUrl": "{{ static_url('assets/js/datatable.json') }}"
+                "ajax": {
+                    "type": "GET",
+                    "url": "/relations",
+                    "dataSrc": function (json) {
+                        hideLoader()
+                        return json.data;
+                    }
                 },
-                initComplete: function () {
-                    $('div.dataTables_filter input').attr('autocomplete', 'off')
-                        .attr("autocorrect", "off")
-                },
-                responsive: true,
-                bSort: false,
-                serverSide: true,
-                "scrollX": true,
-                "pageLength": 100,
-                createdRow: function (row, data, dataIndex) {
-                    var d = data[0];
-                    console.log('asd', data[data.length - 3])
-                    $(row).attr('data-id', d);
-                    $(row).addClass(data[data.length - 3]);
-                    $(row).find('td').eq(7).attr('title', $(data[7]).attr('data-readiness'));
-                },
-                ajax: '/relation',
-                "columnDefs": [{
-                        "render": function (data, type, row) {
-                            var link = '<nobr><a href="/relation' + row[0] +
-                                '" target="_blank"></i></a>';
-                            link += '</nobr>';
-                            return link;
-
-                        },
-                        "targets": 0
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            return '<a href="/customers/' + row[16] +
-                                '/view/" target="_blank"></i><b>' + data +
-                                '</b></a><div class="text-secondary">' + row[17] + "</div>";
-                        },
-                        "targets": 1
-                    },
+                "columns": [
+                    { "data": "id" },
+                    { "data": "location" },
+                    { "data": "date" },
                 ]
             });
         });
     </script>
+
+
 </body>
 
 </html>

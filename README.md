@@ -1,4 +1,4 @@
-#Groupie-tracker-core
+Groupie-tracker-core
 ----------------------------------------------------------------------------------------------------------------
 
 -   localhost:8181/artists - to get list of all artists in json format

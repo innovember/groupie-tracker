@@ -30,6 +30,7 @@
                 <div class="topnav">
                     <a class="active" href="/">Home</a>
                     <a href="/relation">Relations</a>
+                    <a href="/search">Search</a>
                     <div class="topnav-right">
                         <a href="/artists" target="_blank">All Artists</a>
                         <a href="/relations" target="_blank">All Relations</a>
@@ -40,7 +41,7 @@
                     <h1><b>All Relations</b></h1>
                 </div>
 
-                <hr class="w3-opacity">
+                <!-- <hr class="w3-opacity">
                 <form action="/action_page.php" target="_blank">
                     <div class="w3-section">
                         <label>Search:</label>
@@ -59,7 +60,7 @@
                     <button class="w3-button w3-white w3-hide-small"><i
                             class="fa fa-map-pin w3-margin-right"></i>Art</button>
                 </div>
-            </div>
+            </div> -->
         </header>
 
 
@@ -83,38 +84,23 @@
                 </tfoot>
             </table>
         </div>
+    </div>
 
-
-        <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-            <h4><b>About Me</b></h4>
-            <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of
-                lorem
-                ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut
-                rutrum.
-                Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent
-                tincidunt
-                sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non
-                fringilla.</p>
-            <hr>
-
-
-        </div>
-
-        <!-- Footer -->
-        <footer class="w3-container w3-padding-32 w3-dark-grey">
-            <div class="w3-row-padding">
-                <div class="w3-center">
-                    <h3>Alem - 2020</h3>
-                    <p>"Groupie Tracker" as part of project for Alem</p>
-                    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-                </div>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-32 w3-dark-grey">
+        <div class="w3-row-padding">
+            <div class="w3-center">
+                <h3>Alem - 2020</h3>
+                <p>"Groupie Tracker" as part of project for Alem</p>
+                <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp"
-                title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+            title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 
-        <!-- End page content -->
+    <!-- End page content -->
     </div>
 
     <script src="/assets/js/main.js"></script>
@@ -136,10 +122,15 @@
                         return json.data;
                     }
                 },
-                "columns": [
-                    { "data": "id" },
-                    { "data": "location" },
-                    { "data": "date" },
+                "columns": [{
+                        "data": "id"
+                    },
+                    {
+                        "data": "location"
+                    },
+                    {
+                        "data": "date"
+                    },
                 ]
             });
         });

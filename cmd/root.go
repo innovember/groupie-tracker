@@ -20,7 +20,12 @@ func Execute() {
 	// User pages handlers
 	http.HandleFunc("/", internal.ShowArtistsHandler)
 	http.HandleFunc("/relation", internal.ShowRelationHandler)
-	fmt.Println("Server is listening...")
+
+	// Search page handlers
+	http.HandleFunc("/search", internal.SearchPageHandler)
+	http.HandleFunc("/search_result", internal.SearchResultPageHandler)
+	http.HandleFunc("/artist_info", internal.ArtistInfoPageHandler)
+	fmt.Println("Server is listening port 8181...")
 
 	err := http.ListenAndServe(getPort(), nil)
 	if err != nil {

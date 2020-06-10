@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-<title>Artists | Groupie Tracker</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/assets/css/main.css">
+
+<head>
+    <title>Search | Groupie Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/assets/css/search.css">
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link rel="stylesheet" href="/assets/css/w3.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
 
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 
@@ -19,8 +23,7 @@
 
         <!-- Header -->
         <header id="portfolio">
-            <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;"
-                    class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+
             <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                     class="fa fa-bars"></i></span>
             <div class="w3-container">
@@ -36,12 +39,39 @@
 
         </header>
         <div class="search-container">
-            <form action="/search_result/" method="POST">
+            <form action="/search_result" method="POST">
                 <div class="inner-form">
                     <div class="input-field second-wrap">
                         <input id="searchText" type="text" name="searchText" list="list" />
+                        {{range .Artists}}
                         <datalist id="list">
+                            <option>{{.Name}} -> band</option>
+                            {{range .Members}}<option>{{.}} -> member</option>{{end}}
+                            <option>{{.CreationDate}} -> creation date</option>
+                            <option>{{.FirstAlbum}} -> first album date</option>
+                            {{end}}
+                            {{range .Relations.Index}}
+                            {{range $key, $value := .DatesLocations}}
+                            <option>{{$key}} -> concert location</option>
+                            {{range $value}}
+                            <option>{{.}} -> concert date</option>
+                            {{end}}
+                            {{end}}
+                            {{end}}
                         </datalist>
+                    </div>
+                    <div class="input-field first-wrap">
+                        <div class="custom-select" id="search-type">
+                            <select name="searchChoice">
+                                <option value="select">select type</option>
+                                <option value="band">band</option>
+                                <option value="member">member</option>
+                                <option value="album">first album date</option>
+                                <option value="creation">creation date</option>
+                                <option value="location">concert location</option>
+                                <option value="date">concert date</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="input-field third-wrap">
                         <button class="btn-search" type="submit">
@@ -51,33 +81,38 @@
                                     d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
                                 </path>
                             </svg>
+
+
                         </button>
                     </div>
                 </div>
             </form>
-
-            <!-- Footer -->
-            <footer class="w3-container w3-padding-32 w3-dark-grey">
-                <div class="w3-row-padding">
-                    <div class="w3-center">
-                        <h3>Alem - 2020</h3>
-                        <p>"Groupie Tracker" as part of project for Alem</p>
-                        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-                        </p>
-                    </div>
-                </div>
-            </footer>
-
-            <div class="w3-black w3-center w3-padding-24">Powered by <a
-                    href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank"
-                    class="w3-hover-opacity">w3.css</a></div>
-
-            <!-- End page content -->
         </div>
+    </div>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-32 w3-dark-grey">
+        <div class="w3-row-padding">
+            <div class="w3-center">
+                <h3>Alem - 2020</h3>
+                <p>"Groupie Tracker" as part of project for Alem</p>
+                <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+                </p>
+            </div>
+        </div>
+    </footer>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+            title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+
+    <!-- End page content -->
+    </div>
+    <script src="/assets/js/select.js"></script>
+    <script src="/assets/js/search.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+
 
 
 </body>

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-<title>Artists | Groupie Tracker</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/assets/css/main.css">
+
+<head>
+    <title>Result Search | Groupie Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/assets/css/font.css">
+    <link rel="stylesheet" href="/assets/css/w3.css">
+    <link rel="stylesheet" href="/assets/fonts/SourceSansPro-Italic.ttf">
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
 
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 
@@ -19,8 +23,6 @@
 
         <!-- Header -->
         <header id="portfolio">
-            <a href="#"><img src="/w3images/avatar_g2.jpg" style="width:65px;"
-                    class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
             <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                     class="fa fa-bars"></i></span>
             <div class="w3-container">
@@ -35,7 +37,11 @@
                 </div>
 
         </header>
-        <div id="mainContainer"></div>
+        <div id="mainContainer">
+            <pre>
+                {{.Info}}
+            </pre>
+        </div>
 
         <!-- Footer -->
         <footer class="w3-container w3-padding-32 w3-dark-grey">
@@ -53,10 +59,9 @@
 
         <!-- End page content -->
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
 
 
 </body>

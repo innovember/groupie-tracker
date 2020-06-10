@@ -27,7 +27,7 @@ func ArtistsPageHandler(w http.ResponseWriter, req *http.Request) {
 
 func ArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/artists" {
-		http.Error(w, "Go back to the main page", 404)
+		http.Error(w, "Artist page error. Go back to the main page", 404)
 		return
 	}
 	artists, err := GetAllArtists()
@@ -87,14 +87,16 @@ func ShowArtistsHandler(w http.ResponseWriter, req *http.Request) {
 	switch req.Method {
 	case "GET":
 		ShowArtistsPageGetHandler(w, req)
+	case "POST":
+		SearchResultPageHandler(w, req)
 	default:
-		http.Error(w, "Only GET method allowed, return to main page", 405)
+		http.Error(w, "Only GET/POST method allowed, return to main page", 405)
 	}
 }
 
 func ShowArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/" {
-		http.Error(w, "Go back to the main page", 404)
+		http.Error(w, "Main page error.Go back to the main page", 404)
 		return
 	}
 	w.Header().Set("Content-Type", "text/html")
@@ -109,7 +111,7 @@ func ShowArtistsPageGetHandler(w http.ResponseWriter, req *http.Request) {
 
 func RelationPageHandler(w http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/relations" {
-		http.Error(w, "Go back to the main page", 404)
+		http.Error(w, "Relations page error, Go back to the main page", 404)
 		return
 	}
 	relations, err := GetAllRelations()
@@ -138,7 +140,7 @@ func ShowRelationHandler(w http.ResponseWriter, req *http.Request) {
 
 func ShowRelationPageGetHandler(w http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/relation" {
-		http.Error(w, "Go back to the main page", 404)
+		http.Error(w, "Relation page error.Go back to the main page", 404)
 		return
 	}
 	w.Header().Set("Content-Type", "text/html")

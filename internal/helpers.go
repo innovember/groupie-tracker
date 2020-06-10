@@ -150,3 +150,12 @@ func formatLocation(str string) string {
 func formatDate(str string) string {
 	return strings.ReplaceAll(str, "-", ".")
 }
+
+func hasWord(arr []string, word string) bool {
+	for _, value := range arr {
+		if value == word {
+			return true
+		}
+	}
+	return false
+}

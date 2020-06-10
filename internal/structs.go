@@ -1,8 +1,5 @@
 package internal
 
-type Artists struct {
-	Artists []Artist
-}
 type Artist struct {
 	ID            float32  `json:"id"`
 	Image         string   `json:"image"`
@@ -58,4 +55,21 @@ type AllRelationsData struct {
 	RecordsTotal    int            `json:"recordsTotal"`
 	RecordsFiltered int            `json:"recordsFiltered"`
 	Data            []AllRelations `json:"data"`
+}
+
+// Artist personal info
+type ArtistInfo struct {
+	ID            float32
+	Image         string
+	Name          string
+	Members       []string
+	CreationDate  float32
+	FirstAlbum    string
+	LocationDates SubRelation
+}
+
+// Search result structure
+type Search struct {
+	Artists   []Artist
+	Relations Relation
 }

@@ -73,3 +73,10 @@ type Search struct {
 	Artists   []Artist
 	Relations Relation
 }
+
+// Map struct
+
+type MapData struct {
+	LocationsArr []string
+	Count        int
+}

@@ -25,6 +25,9 @@ func Execute() {
 	http.HandleFunc("/search", internal.SearchPageHandler)
 	http.HandleFunc("/search_result", internal.SearchResultPageHandler)
 	http.HandleFunc("/artist_info/", internal.ArtistInfoPageHandler)
+
+	// Map page handler
+	http.HandleFunc("/map", internal.MapPageHandler)
 	fmt.Println("Server is listening port 8181...")
 
 	err := http.ListenAndServe(getPort(), nil)

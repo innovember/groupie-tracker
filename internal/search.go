@@ -63,7 +63,7 @@ func SearchResultPageHandler(w http.ResponseWriter, req *http.Request) {
 
 func SearchResultPostPageHandler(w http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/search_result" {
-		http.Error(w, "SearchResuult page error, go back to the main page", 404)
+		http.Error(w, "SearchResult page error, go back to the main page", 404)
 	}
 	if errForm := req.ParseForm(); errForm != nil {
 		http.Error(w, "Go back to the main page", 400)

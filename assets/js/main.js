@@ -1,5 +1,3 @@
-
-
 function setData(data) {
     mainContainer.innerHTML = ""
     for (i = 0; i < data.length; i++) {
@@ -39,7 +37,7 @@ function renderArtist(data) {
         '<p class="p"><span class="w3-text-grey">Members</span><br>' + data.members.join(', ') + "</p>" +
         '<p class="p"><span class="w3-text-grey">Formed</span><br>' + data.creationDate + "</p>" +
         '<p class="p"><span class="w3-text-grey">First Album</span><br>' + data.firstAlbum + "</p>" +
-        '<a href="http://127.0.0.1:8181/artist/' + data.id + '" class="w3-button w3-black w3-margin-bottom w3-block" target="_blank">  ' +
+        '<a href="http://127.0.0.1:8181/artist_info/' + data.id + '" class="w3-button w3-black w3-margin-bottom w3-block" target="_blank">  ' +
         '<i class="fa fa-eye w3-margin-right"></i>View</button>'
 
     var card = document.createElement("div");

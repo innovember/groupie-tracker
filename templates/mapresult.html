@@ -1,0 +1,103 @@
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Google map</title>
+        <link rel="stylesheet" href="/assets/css/normalize.min.css">
+        <link rel="shortcut icon" href="/assets/img/location.ico" type="image/x-icon">
+    </head>
+
+    <body>
+        {{ define "map" }}
+        <div id="map" style="width: 100vw; height: 100vh;" data-count={{ .Count }} {{ range $i, $j := .LocationsArr}}
+            data-map-{{ $i }}="{{ . }}" {{ end }}>
+        </div>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaHS4ek2S5LdZKhwKU7sYBFwL_huvm1Xo"
+            type="text/javascript"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/common.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/util.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/geocoder.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/map.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/onion.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/infowindow.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/marker.js"></script>
+        <script type="text/javascript" src="https://maps.google.com/maps-api-v3/api/js/41/3a/controls.js"></script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+            var delay = 100;
+
+            var addresses = [];
+            for (let i = 0; i < $('#map').data('count'); i++) {
+                addresses.push($('#map').data(`map-${i}`));
+            }
+
+            var infowindow = new google.maps.InfoWindow();
+            var latlng = new google.maps.LatLng(48.447823, 66.110511);
+            var mapOptions = {
+                zoom: 5,
+                minZoom: 3,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var geo = new google.maps.Geocoder();
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var bounds = new google.maps.LatLngBounds();
+
+            function getAddress(search, next) {
+                geo.geocode({
+                    address: search
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var p = results[0].geometry.location;
+                        var lat = p.lat();
+                        var lng = p.lng();
+                        createMarker(search, lat, lng);
+                    } else {
+                        if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                            nextAddress--;
+                            delay++;
+                        } else {
+                            console.log(status);
+                        }
+                    }
+                    next();
+                });
+            }
+
+            function createMarker(add, lat, lng) {
+                var contentString = add;
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    map: map,
+                    zIndex: Math.round(latlng.lat() * -100000) << 5
+                });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                });
+
+                bounds.extend(marker.position);
+            }
+
+            var nextAddress = 0;
+
+            function theNext() {
+                if (nextAddress < addresses.length) {
+                    setTimeout('getAddress("' + addresses[nextAddress] + '",theNext)', delay);
+                    nextAddress++;
+                } else {
+                    map.fitBounds(bounds);
+                }
+            }
+
+            theNext();
+        </script>
+    </body>
+
+    </html>
+    {{ end }}
